@@ -17,22 +17,24 @@ with open(filepath,"r") as csvfile:
         
         total_months += 1
         Total_net = int(row[1]) + Total_net
-        
+        #calculating the changes
         changes = int(row[1]) - prev_net
+        Net_Changes.append(changes)
+        prev_net = int(row[1])
+        #calculating greatest decrease
         if low_change > changes:
           low_change = changes
           low_month = row[0] 
+          #calculating greatest increase
         if high_change < changes:
            high_change = changes
            high_month = row[0]  
-        prev_net = int(row[1])
-        Net_Changes.append(changes)
-    
-    avgchanges = round(sum(Net_Changes)/len(Net_Changes), 2)
+        
+avgchanges = round(sum(Net_Changes)/len(Net_Changes), 2)
     
 print(f"Total Months {total_months}")
 print(f"Total ${Total_net}")
-print(f"Average Changes ${avgchanges}")
+print(f"Average Change ${avgchanges}")
 print(f"Greatest Increase in Profits: {high_month} (${high_change})")
 print(f"Greatest Decrease in Profits: {low_month} (${low_change})")
 
