@@ -1,6 +1,4 @@
-import os
 import csv
-import random
 filepath = r"PayBank\Resources\budget_data.csv"
 total_months = 1
 Total_profit_loss = []
@@ -37,9 +35,3 @@ print(f"Total ${Total_net}")
 print(f"Average Change ${avgchanges}")
 print(f"Greatest Increase in Profits: {high_month} (${high_change})")
 print(f"Greatest Decrease in Profits: {low_month} (${low_change})")
-
-
-
-
-
-
