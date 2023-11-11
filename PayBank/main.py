@@ -2,27 +2,42 @@ import os
 import csv
 import random
 filepath = r"PayBank\Resources\budget_data.csv"
-row_count = 0
+total_months = 1
 Total_profit_loss = []
-# calculation of the total number of mounth 
+Net_Changes= []
+low_change = 0
+high_change = 0
 with open(filepath,"r") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
     Header_row = next(csvreader)
+    first_row = next(csvreader)
+    prev_net = int(first_row[1])
+    Total_net = int(first_row[1])
+    for row in csvreader:
+        
+        total_months += 1
+        Total_net = int(row[1]) + Total_net
+        
+        changes = int(row[1]) - prev_net
+        if low_change > changes:
+          low_change = changes
+          low_month = row[0] 
+        if high_change < changes:
+           high_change = changes
+           high_month = row[0]  
+        prev_net = int(row[1])
+        Net_Changes.append(changes)
+    
+    avgchanges = round(sum(Net_Changes)/len(Net_Changes), 2)
+    
+print(f"Total Months {total_months}")
+print(f"Total ${Total_net}")
+print(f"Average Changes ${avgchanges}")
+print(f"Greatest Increase in Profits: {high_month} (${high_change})")
+print(f"Greatest Decrease in Profits: {low_month} (${low_change})")
 
-    # for row in csvreader:
-    #     row_count = row_count + 1
-
-    for net in csvreader:
-        profit_loss = (net[1].split(","))
-        Total_profit_loss.append(profit_loss)
 
 
-Total = sum(Total_profit_loss)
-print(Total)
 
 
-# Total_Months = row_count
-# print(Total_Months)      
-# Total_profit_loss = profit_loss
-# print(Total_profit_loss)
 
